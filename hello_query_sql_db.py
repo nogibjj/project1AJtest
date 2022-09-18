@@ -1,26 +1,30 @@
 #!/usr/bin/env python
 
 import click
-from dblib.querydb import querydb
+from dblib.querydb import find_year, find_director
 
 # build a click group
 @click.group()
 def cli():
-    """A simple CLI to query a SQL database"""
+    pass
 
 
 # build a click command
-@cli.command()
-@click.option(
-    "--query",
-    default="SELECT * FROM default.diamonds LIMIT 2",
-    help="SQL query to execute",
-)
-def cli_query(query):
-    """Execute a SQL query"""
-    querydb(query)
+@click.command()
+@click.option("--n", default=2020, help="Find release year")
+def query_release_year(n):
+    """Find release year"""
+    find_release_year(n)
 
 
-# run the CLI
+@click.command()
+def query_duration(n):
+    """Find duration of movie """
+    find_duration()
+
+
+# run the command
 if __name__ == "__main__":
+    cli.add_command(query_release_year)
+    cli.add_command(query_duration)
     cli()
