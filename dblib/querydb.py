@@ -18,11 +18,11 @@ def querydb(query):
 
     return result
 
-def find_N_most_pay(N):
-    query = f"select salary, job_title from ds_salaries order by int(salary) desc limit {N};"
+def release_year(N):
+    query = "select release_year from netflix_titles where title = N"
     return querydb(query)
 
 
-def find_job_avg_salary():
-    query = "select distinct AVG(int(salary)) over (partition  by job_title) as avg_salary, job_title from ds_salaries order by avg_salary desc;"
+def duration(N):
+    query = "select duration from netflix_titles where title = N"
     return querydb(query)
