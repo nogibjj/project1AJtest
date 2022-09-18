@@ -2,7 +2,7 @@ from databricks import sql
 import os
 
 
-def querydb(query="SELECT * FROM default.diamonds LIMIT 2"):
+def querydb(query):
     with sql.connect(
         server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
         http_path=os.getenv("DATABRICKS_HTTP_PATH"),
@@ -17,3 +17,12 @@ def querydb(query="SELECT * FROM default.diamonds LIMIT 2"):
             print(row)
 
     return result
+
+def find_N_most_pay(N):
+    query = f"select salary, job_title from ds_salaries order by int(salary) desc limit {N};"
+    return querydb(query)
+
+
+def find_job_avg_salary():
+    query = "select distinct AVG(int(salary)) over (partition  by job_title) as avg_salary, job_title from ds_salaries order by avg_salary desc;"
+    return querydb(query)
