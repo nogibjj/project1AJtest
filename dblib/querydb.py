@@ -19,10 +19,10 @@ def querydb(query):
     return result
 
 def release_year(N):
-    query = "select release_year from netflix_titles where title = N"
+    query = "select release_year from netflix_titles where title = {N}",N
     return querydb(query)
 
 
 def duration(N):
-    query = "select duration from netflix_titles where title = N"
+    query = "select duration from netflix_titles where title = {N}",N
     return querydb(query)
